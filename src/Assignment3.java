@@ -180,7 +180,7 @@ public class Assignment3 {
 
         int[] arr = {1, 5, 3, 20, 4, 7};
 //        System.out.println("Median is: " + findMedian(arr));
-        System.out.println(quickSelect(arr, 0, 5, 3));
+        System.out.println(quickSelect(arr, 0, 5, 1));
     }
 
 }
