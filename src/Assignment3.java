@@ -23,24 +23,41 @@ public class Assignment3 {
         }
     }
 
-    public static double findMedian(int [] input) {
-//        Arrays.sort(input);
+    /**
+     * Finds and returns the median of the array that is passed in
+     * @param input Array of length greater than 0
+     * @return The median of the array
+     * @throws IllegalArgumentException If user passes in null or an array of length 0
+     */
+    public static double findMedian(int [] input) throws IllegalArgumentException{
+        if(input == null || input.length == 0) {
+            //Alert user if array is null or has length 0
+            throw new IllegalArgumentException("Array cannot be empty or null");
+        }
+
+        //Sort the input array
         mergeSort(input);
-        System.out.println(Arrays.toString(input));
+
+        //Return the middle element if array has odd length and the average of middle 2 elements if array has even length
         int mid = input.length / 2;
         double result = (input.length % 2 == 1 ? (double) input[mid] : (double) (input[mid] + input[mid - 1]) / 2);
+
         return result;
     }
 
+    /**
+     * Sorts the given array in ascending order in O(nlogn) time
+     * @param arr The input array
+     */
     public static void mergeSort(int[] arr) {
-
-
         if(arr.length < 2){
+            //Arrays with length 1 are already sorted, so do nothing
             return;
         }
 
         System.out.println("Input array: " + Arrays.toString(arr));
 
+        //Initialize and fill two arrays with values corresponding to the left and right subarrays split by the midpoint of the input array
         int mid  = arr.length / 2;
         int[] left = new int[mid];
         int[] right = new int[arr.length - mid];
@@ -54,31 +71,49 @@ public class Assignment3 {
 
         System.out.println("Splitting into subarrays: " + Arrays.toString(left) + " and " + Arrays.toString(right));
 
+        //Recursive calls to sort the left and right subarrays
         mergeSort(left);
         mergeSort(right);
 
+        System.out.println("Merging subarrays: " + Arrays.toString(left) + " and " + Arrays.toString(right));
+
+        //Merge the two subarrays into the original array after they are sorted
         merge(arr, left, right, left.length, right.length);
+
+        System.out.println("Sorted and merged subarrays: " + Arrays.toString(arr));
 
     }
 
+    /**
+     * Merges the contents of two sorted subarrays in ascending order in the original input array
+     * @param arr The original input array
+     * @param left The left subarray
+     * @param right The right subarray
+     * @param leftLength The length of the left subarray
+     * @param rightLength The length of the right subarray
+     */
     public static void merge(int[] arr, int[] left, int[] right, int leftLength, int rightLength) {
-        System.out.println("Merging subarrays: " + Arrays.toString(left) + " and " + Arrays.toString(right));
-
+        //Initialize indices for iterating through left and right arrays
         int i = 0, j = 0;
 
         while(i < leftLength && j < rightLength) {
+            //Iterate through both arrays until we have exhausted at least one of the two subarrays
             if(left[i] < right[j]) {
+                //If next element in left is smaller than next element in right, place left element into original array and increment left index
                 arr[i + j] = left[i++];
             } else {
+                //If next element in left is greater than or equal to next element in right, place right element into original array and increment right index
                 arr[i + j] = right[j++];
             }
         }
 
         while(i < leftLength) {
+            //If right array is exhausted first, place remaining elements from left array into original
             arr[i + j] = left[i++];
         }
 
         while(j < rightLength) {
+            //If left array is exhausted first, place remaining elements from right array into original
             arr[i + j] = right[j++];
         }
     }
@@ -105,8 +140,8 @@ public class Assignment3 {
 //
 //        printLevel(root, 0);
 
-        int[] arr = {1,5,3,20,4,7};
-        System.out.println(findMedian(arr));
+        int[] arr = {1, 5, 3, 20, 4, 7};
+        System.out.println("Median is: " + findMedian(arr));
     }
 
 }
