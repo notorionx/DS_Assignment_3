@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Assignment3 {
 
     /**
@@ -20,10 +23,64 @@ public class Assignment3 {
         }
     }
 
-    public static int findMedian(int [] input) {
+    public static double findMedian(int [] input) {
+//        Arrays.sort(input);
+        mergeSort(input);
+        System.out.println(Arrays.toString(input));
+        int mid = input.length / 2;
+        double result = (input.length % 2 == 1 ? (double) input[mid] : (double) (input[mid] + input[mid - 1]) / 2);
+        return result;
+    }
 
-        // Problem 2
-        return 0;
+    public static void mergeSort(int[] arr) {
+
+
+        if(arr.length < 2){
+            return;
+        }
+
+        System.out.println("Input array: " + Arrays.toString(arr));
+
+        int mid  = arr.length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[arr.length - mid];
+
+        for(int i = 0; i < mid; i++) {
+            left[i] = arr[i];
+        }
+        for(int j = mid; j < arr.length; j++) {
+            right[j - mid] = arr[j];
+        }
+
+        System.out.println("Splitting into subarrays: " + Arrays.toString(left) + " and " + Arrays.toString(right));
+
+        mergeSort(left);
+        mergeSort(right);
+
+        merge(arr, left, right, left.length, right.length);
+
+    }
+
+    public static void merge(int[] arr, int[] left, int[] right, int leftLength, int rightLength) {
+        System.out.println("Merging subarrays: " + Arrays.toString(left) + " and " + Arrays.toString(right));
+
+        int i = 0, j = 0;
+
+        while(i < leftLength && j < rightLength) {
+            if(left[i] < right[j]) {
+                arr[i + j] = left[i++];
+            } else {
+                arr[i + j] = right[j++];
+            }
+        }
+
+        while(i < leftLength) {
+            arr[i + j] = left[i++];
+        }
+
+        while(j < rightLength) {
+            arr[i + j] = right[j++];
+        }
     }
 
     public static int quickFindMedian(int [] input) {
@@ -47,6 +104,9 @@ public class Assignment3 {
 //        root.right = n_R;
 //
 //        printLevel(root, 0);
+
+        int[] arr = {1,5,3,20,4,7};
+        System.out.println(findMedian(arr));
     }
 
 }
