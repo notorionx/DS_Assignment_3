@@ -29,7 +29,7 @@ public class Assignment3 {
      * @return The median of the array
      * @throws IllegalArgumentException If user passes in null or an array of length 0
      */
-    public static double findMedian(int [] input) throws IllegalArgumentException{
+    public static double findMedian(int[] input) throws IllegalArgumentException{
         if(input == null || input.length == 0) {
             //Alert user if array is null or has length 0
             throw new IllegalArgumentException("Array cannot be empty or null");
@@ -118,10 +118,48 @@ public class Assignment3 {
         }
     }
 
-    public static int quickFindMedian(int [] input) {
+    public static int quickFindMedian(int[] input) {
 
-        // Problem 3
+
         return 0;
+    }
+
+    public static int quickSelect(int[] arr, int l, int r, int k) {
+        if(l < r) {
+            int pivot = partition(arr, l, r);
+            if(pivot == k - 1) {
+                return arr[pivot];
+            } else if(pivot > k - 1) {
+                return quickSelect(arr, l, pivot, k);
+            } else {
+                return quickSelect(arr, pivot + 1, r, k);
+            }
+        }
+
+        return -99999;
+    }
+
+    public static int partition(int[] arr, int l, int r) {
+        System.out.println("Input: " + Arrays.toString(arr));
+        System.out.println("Start: " + l + " End: " + r + " Pivot value: " + arr[l]);
+        int pivot = l, store = l + 1;
+
+        for(int i = l + 1; i < r + 1; i++) {
+            if(arr[i] < arr[pivot]) {
+                swap(arr, i, store);
+                store++;
+            }
+        }
+
+        swap(arr, pivot, store - 1);
+        System.out.println("Output: " + Arrays.toString(arr) + "\n");
+        return store - 1;
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     public static void main(String[] args) {
@@ -141,7 +179,8 @@ public class Assignment3 {
 //        printLevel(root, 0);
 
         int[] arr = {1, 5, 3, 20, 4, 7};
-        System.out.println("Median is: " + findMedian(arr));
+//        System.out.println("Median is: " + findMedian(arr));
+        System.out.println(quickSelect(arr, 0, 5, 3));
     }
 
 }
