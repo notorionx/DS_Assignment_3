@@ -229,20 +229,33 @@ public class Assignment3 {
     }
 
     public static void main(String[] args) {
-//        TreeNode root = new TreeNode(2);
-//        TreeNode n_L = new TreeNode(7);
-//        TreeNode n_R = new TreeNode(5);
-//        TreeNode n_LL = new TreeNode(2);
-//        TreeNode n_LR = new TreeNode(6);
-//        TreeNode n_RR = new TreeNode(9);
-//
-//        n_L.left = n_LL;
-//        n_L.right = n_LR;
-//        n_R.right = n_RR;
-//        root.left = n_L;
-//        root.right = n_R;
-//
-//        printLevel(root, 0);
+
+        TreeNode
+                //Level 0
+                root = new TreeNode(2),
+                //Level 1
+                n_L = new TreeNode(7),
+                n_R = new TreeNode(5),
+                //Level 2
+                n_LL = new TreeNode(2),
+                n_LR = new TreeNode(6),
+                n_RR = new TreeNode(9),
+                //Level 3
+                n_LRL = new TreeNode(5),
+                n_LRR = new TreeNode(11),
+                n_RRL = new TreeNode(4);
+
+        n_LR.left = n_LRL;
+        n_LR.right = n_LRR;
+        n_RR.left = n_RRL;
+        n_L.left = n_LL;
+        n_L.right = n_LR;
+        n_R.right = n_RR;
+        root.left = n_L;
+        root.right = n_R;
+
+        System.out.println("\n------------------------------PRINTLEVEL-------------------------------\n");
+        printLevel(root, 3);
 
         int[] arr = {22, 17, 5, 40, 3, 20, 4};
         System.out.println("\n------------------------------FINDMEDIAN-------------------------------\n");
